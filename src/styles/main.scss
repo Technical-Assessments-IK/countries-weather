@@ -1,0 +1,85 @@
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+.countries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+.country-flag, .weather-info img {
+  margin: 0;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+.weather-info {
+  display: grid;
+}
+.weather-info-wrapper {
+  align-self: flex-end;
+  width: 30px;
+  height: 30px;
+}
+.country-flag-wrap {
+  height: 20px;
+  position: relative;
+}
+.country-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.search-bar {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 20px;
+}
+.country-card {
+  padding: 1rem;
+  border: 1px solid lightblue;
+  border-radius: 8px;
+  display: grid;
+  min-height: 100px;
+  position: relative;
+}
+.view-details {
+  justify-self: flex-end;
+  align-self: flex-end;
+}
+.filter-dropdown,
+.sort-dropdown {
+  margin: 0 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.filters {
+  display: flex;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  list-style: none;
+
+  li {
+    margin: 0 0.5rem;
+    cursor: pointer;
+    &.active {
+      font-weight: bold;
+    }
+  }
+}
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #666;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
