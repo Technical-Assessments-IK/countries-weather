@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import type { Country } from "../types";
+
+import { CountryPaginate } from "../controls";
+import { CountryCardSkeleton, EmptyState } from "../placeholders";
+
 import { CountryCard } from "./CountryCard";
-import { EmptyState } from "./EmptyState/EmptyState";
-import { CountryPaginate } from "./Pagination/CountryPaginate";
-import { CountryCardSkeleton } from "./EmptyState/CountryCardSkeleton";
+
+import type { Country } from "@/shared";
 
 const ITEMS_PER_PAGE = 12;
 
-type PaginatedCountryListProps = {
+type CountryListProps = {
   countries: Country[];
   isLoading: boolean;
 };
 
-export const PaginatedCountryList: React.FC<PaginatedCountryListProps> = ({
+export const CountryList: React.FC<CountryListProps> = ({
   countries,
   isLoading,
 }) => {

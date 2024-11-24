@@ -1,5 +1,6 @@
 import axios from 'axios';
-import type { Weather } from '../types';
+
+import type { Weather } from '../shared';
 
 const WEATHER_API_KEY = '6b5afb1afe4b40608a9182128242211';
 const BASE_URL = 'https://api.weatherapi.com/v1/current.json';

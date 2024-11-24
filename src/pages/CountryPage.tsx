@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 
 const CountryDetails = React.lazy(() =>
-  import("../components/CountryDetails").then((module) => ({
+  import("../components/features/CountryDetails").then((module) => ({
     default: module.CountryDetails,
   }))
 );

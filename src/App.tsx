@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import { useQuery } from '@apollo/client';
-import { HomePage } from './pages/HomePage';
-import { CountryPage } from './pages/CountryPage';
-import { GET_COUNTRIES } from './graphql/queries/countries';
-import type { Country } from './types';
-import ErrorBoundary from './components/ErrorBoundary';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Skeleton from 'react-loading-skeleton';
 import "react-loading-skeleton/dist/skeleton.css";
+
+import { GET_COUNTRIES } from './graphql/queries/countries';
+import { HomePage, CountryPage } from './pages';
+import type { Country } from './shared';
+import ErrorBoundary from './utils/ErrorBoundary';
 
 const App: React.FC = () => {
   const { data, loading, error } = useQuery(GET_COUNTRIES);
@@ -21,7 +23,7 @@ const App: React.FC = () => {
     }
   }, [data]);
 
-  if (loading) return <Skeleton />;
+  if (loading) return <><Skeleton /><>App is loading...</><Skeleton /></>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (

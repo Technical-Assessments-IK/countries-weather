@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { PaginatedCountryList } from "../components/PaginatedCountryList";
-import { SearchBar } from "../components/ActionsPanels/SearchBar";
-import { FilterDropdown } from "../components/ActionsPanels/FilterDropdown";
-import { SortDropdown } from "../components/ActionsPanels/SortDropdown";
+
+import { CountryList, EmptyState, FilterDropdown, SearchBar, SortDropdown } from "../components";
+import type { Country } from "../shared";
 import { fetchWeatherWithTemperature } from "../utils/api";
-import type { Country } from "../types";
-import { EmptyState } from "../components/EmptyState/EmptyState";
 
 export const HomePage = ({ countries }: { countries: Country[] }) => {
   const [enrichedCountries, setEnrichedCountries] =
@@ -108,11 +105,11 @@ export const HomePage = ({ countries }: { countries: Country[] }) => {
         </div>
       </div>
       {isLoading ? (
-        <PaginatedCountryList countries={filteredCountries} isLoading />
+        <CountryList countries={filteredCountries} isLoading />
       ) : filteredCountries.length === 0 ? (
         <EmptyState message="No results found. Try adjusting your search, filters, or sorting." />
       ) : (
-        <PaginatedCountryList countries={filteredCountries} isLoading={false} />
+        <CountryList countries={filteredCountries} isLoading={false} />
       )}
     </>
   );

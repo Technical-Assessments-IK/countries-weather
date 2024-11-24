@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { fetchWeather } from '../utils/api';
-import type { Weather } from '../types';
+
+import { fetchWeather } from '../../utils/api';
+
+import type { Weather } from '@/shared';
 
 type WeatherInfoProps = {
   capital: string;

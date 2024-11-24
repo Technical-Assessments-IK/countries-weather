@@ -1,9 +1,13 @@
 import React from "react";
+
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
+
 import Skeleton from "react-loading-skeleton";
-import type { Country } from "../types";
-import { GET_COUNTRY_DETAILS } from "../graphql/queries/countries";
+
+import { GET_COUNTRY_DETAILS } from "../../graphql/queries/countries";
+
+import type { Country } from "@/shared";
 
 type DetailRowProps = {
   label: string;

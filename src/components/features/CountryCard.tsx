@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+
 import { Link } from 'react-router-dom';
-import { fetchWeather } from '../utils/api';
-import type { Weather } from '../types';
+
+import { fetchWeather } from '../../utils/api';
+
+import type { Weather } from '@/shared';
+
 
 type CountryCardProps = {
   code: string;

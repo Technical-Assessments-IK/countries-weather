@@ -1,8 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+
 import { ApolloProvider } from '@apollo/client';
-import client from './graphql/client';
+
+import ReactDOM from 'react-dom/client';
+
 import App from './App';
+import client from './graphql/client';
 import './styles/main.scss';
 
 const rootElement = document.getElementById('root');
