@@ -1,3 +1,6 @@
+body {
+  font-family: 'Roboto';
+}
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
@@ -32,7 +35,6 @@ h1, h2, h3, h4, h5, h6, p {
   justify-content: space-between;
 }
 .search-bar {
-  margin-bottom: 1rem;
   padding: 0.5rem;
   flex-grow: 1;
   border: 1px solid #ccc;
@@ -41,7 +43,6 @@ h1, h2, h3, h4, h5, h6, p {
 }
 .country-card {
   padding: 1rem;
-  border: 1px solid lightblue;
   border-radius: 8px;
   display: grid;
   min-height: 100px;
@@ -57,6 +58,10 @@ h1, h2, h3, h4, h5, h6, p {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+.filters {
+  margin-bottom: 20px;
+  gap: 1rem;
 }
 .filters,
 .filter-dropdown,
@@ -86,4 +91,8 @@ h1, h2, h3, h4, h5, h6, p {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
+}
+nav {
+  display: flex;
+  justify-content: center;
 }

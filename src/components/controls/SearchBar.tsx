@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { TextField } from "@mui/material";
+
 type SearchBarProps = {
   onSearch: (query: string) => void;
 };
@@ -14,12 +16,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <input
+    <TextField
       type="search"
       value={query}
       onChange={handleChange}
       placeholder="Search countries..."
       className="search-bar"
+      size="small"
     />
   );
 };

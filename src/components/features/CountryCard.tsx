@@ -1,8 +1,11 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+
+import Card from '@mui/material/Card';
 
 import WeatherInfo from './WeatherInfo';
+import { Link } from '@mui/material';
 
 type CountryCardProps = {
   code: string;
@@ -20,7 +23,7 @@ export const CountryCard: React.FC<CountryCardProps> = ({
   flag,
 }) => {
   return (
-    <div className="country-card">
+    <Card className="country-card">
       <div className="country-wrapper">
         <h4>{name}</h4>
         <div className="country-flag-wrap">
@@ -37,15 +40,21 @@ export const CountryCard: React.FC<CountryCardProps> = ({
       </div>
       <p>Capital: {capital}</p>
       <p>Continent: {continent}</p>
-      {/* Use WeatherInfo Component */}
       {capital ? (
         <WeatherInfo capital={capital} />
       ) : (
         <p>No weather information available (no capital provided).</p>
       )}
-      <Link to={`/country/${code}`} className="view-details">
+      <Link
+        component={RouterLink}
+        to={`/country/${code}`}
+        underline="hover"
+        color="primary"
+        variant="body2"
+        className="view-details"
+      >
         View Details
       </Link>
-    </div>
+    </Card>
   );
 };
