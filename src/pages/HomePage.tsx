@@ -7,15 +7,13 @@ import {
   SearchBar,
   SortDropdown,
 } from "../components";
-import type { Country } from "../shared";
+import type { Country } from "@/shared";
 import { fetchWeatherWithTemperature } from "../utils/api";
 import { Container } from "@mui/material";
+import { useFilteredCountries } from "../hooks/useFilteredCountries";
 
 export const HomePage = ({ countries }: { countries: Country[] }) => {
   const [enrichedCountries, setEnrichedCountries] = useState<
-    (Country & { temperature?: number })[]
-  >([]);
-  const [filteredCountries, setFilteredCountries] = useState<
     (Country & { temperature?: number })[]
   >([]);
   const [query, setQuery] = useState<string>("");
@@ -23,6 +21,14 @@ export const HomePage = ({ countries }: { countries: Country[] }) => {
   const [sortKey, setSortKey] = useState<string>("name");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const filteredCountries = useFilteredCountries(
+    enrichedCountries,
+    query,
+    selectedRegion,
+    sortKey,
+    sortDirection
+  );
 
   useEffect(() => {
     const fetchAllTemperatures = async () => {
@@ -39,44 +45,11 @@ export const HomePage = ({ countries }: { countries: Country[] }) => {
         })
       );
       setEnrichedCountries(updatedCountries);
-      setFilteredCountries(updatedCountries);
       setIsLoading(false);
     };
 
     fetchAllTemperatures();
   }, [countries]);
-
-  useEffect(() => {
-    let results = [...enrichedCountries];
-
-    if (query) {
-      results = results.filter((country) =>
-        country.name.toLowerCase().includes(query.toLowerCase())
-      );
-    }
-
-    if (selectedRegion) {
-      results = results.filter((country) =>
-        country.continent?.name.toLowerCase() === selectedRegion.toLowerCase()
-      );
-    }    
-
-    results.sort((a, b) => {
-      if (sortKey === "name") {
-        return sortDirection === "asc"
-          ? a.name.localeCompare(b.name)
-          : b.name.localeCompare(a.name);
-      }
-      if (sortKey === "temperature") {
-        return sortDirection === "asc"
-          ? (a.temperature || 0) - (b.temperature || 0)
-          : (b.temperature || 0) - (a.temperature || 0);
-      }
-      return 0;
-    });
-
-    setFilteredCountries(results);
-  }, [query, selectedRegion, sortKey, sortDirection, enrichedCountries]);
 
   const handleSearch = (query: string) => {
     setQuery(query);

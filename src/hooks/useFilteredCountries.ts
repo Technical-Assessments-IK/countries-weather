@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import type { Country } from "../shared";
 
 export const useFilteredCountries = (
@@ -24,17 +23,11 @@ export const useFilteredCountries = (
 
     if (selectedRegion) {
       results = results.filter((country) => {
-        const continents = Array.isArray(country.continent)
-          ? country.continent
-          : country.continent
-          ? [country.continent]
-          : [];
-
-        return continents.some(
-          (c) =>
-            typeof c === "string" &&
-            c.toLowerCase() === selectedRegion.toLowerCase()
-        );
+        const continentName =
+          typeof country.continent === "object" && country.continent.name
+            ? country.continent.name.toLowerCase()
+            : "";
+        return continentName === selectedRegion.toLowerCase();
       });
     }
 
@@ -44,13 +37,11 @@ export const useFilteredCountries = (
           ? a.name.localeCompare(b.name)
           : b.name.localeCompare(a.name);
       }
-
       if (sortKey === "temperature") {
         return sortDirection === "asc"
           ? (a.temperature || 0) - (b.temperature || 0)
           : (b.temperature || 0) - (a.temperature || 0);
       }
-
       return 0;
     });
 

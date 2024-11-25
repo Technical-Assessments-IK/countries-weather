@@ -167,12 +167,14 @@ a {
 .filters-wrap {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   margin-bottom: $gap-sm;
   gap: $gap-md;
 
   .filters {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: $gap-sm;
   }
 }
@@ -215,4 +217,11 @@ nav {
   display: flex;
   justify-content: center;
   gap: $gap-md;
+}
+
+@media (max-width: 600px) {
+  .filters > div {
+    display: flex;
+    flex-direction: column;
+  }
 }

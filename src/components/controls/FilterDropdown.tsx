@@ -10,7 +10,7 @@ export const FilterDropdown = ({
   label: string;
 }) => {
   return (
-    <>
+    <div>
       <label>{label}:</label>
       <select onChange={(e) => onFilter(e.target.value)} className="filter-dropdown">
         <option value="">All</option>
@@ -20,6 +20,6 @@ export const FilterDropdown = ({
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };
