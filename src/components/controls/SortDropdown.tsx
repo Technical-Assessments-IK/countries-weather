@@ -15,7 +15,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = ({ options, onSort, lab
   const dropdownId = `sort-dropdown-${label.replace(/\s+/g, "-").toLowerCase()}`;
 
   return (
-    <>
+    <div>
       <label htmlFor={dropdownId}>{label}</label>
       <select
         id={dropdownId}
@@ -31,6 +31,6 @@ export const SortDropdown: React.FC<SortDropdownProps> = ({ options, onSort, lab
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };

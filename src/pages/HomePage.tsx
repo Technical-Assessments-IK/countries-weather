@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState } from "react";
 import {
   CountryList,
   EmptyState,
@@ -8,20 +7,17 @@ import {
   SortDropdown,
 } from "../components";
 import type { Country } from "@/shared";
-import { fetchWeatherWithTemperature } from "../utils/api";
 import { Container } from "@mui/material";
 import { useFilteredCountries } from "../hooks/useFilteredCountries";
+import { useEnrichedCountries } from "../hooks/useEnrichedCountries";
 
 export const HomePage = ({ countries }: { countries: Country[] }) => {
-  const [enrichedCountries, setEnrichedCountries] = useState<
-    (Country & { temperature?: number })[]
-  >([]);
   const [query, setQuery] = useState<string>("");
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [sortKey, setSortKey] = useState<string>("name");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const { enrichedCountries, isLoading } = useEnrichedCountries(countries);
   const filteredCountries = useFilteredCountries(
     enrichedCountries,
     query,
@@ -29,27 +25,6 @@ export const HomePage = ({ countries }: { countries: Country[] }) => {
     sortKey,
     sortDirection
   );
-
-  useEffect(() => {
-    const fetchAllTemperatures = async () => {
-      setIsLoading(true);
-      const updatedCountries = await Promise.all(
-        countries.map(async (country) => {
-          const temperature = await fetchWeatherWithTemperature(
-            country.capital || ""
-          );
-          return {
-            ...country,
-            temperature: temperature ?? undefined,
-          };
-        })
-      );
-      setEnrichedCountries(updatedCountries);
-      setIsLoading(false);
-    };
-
-    fetchAllTemperatures();
-  }, [countries]);
 
   const handleSearch = (query: string) => {
     setQuery(query);
