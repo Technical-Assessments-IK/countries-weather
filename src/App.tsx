@@ -5,10 +5,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Skeleton from 'react-loading-skeleton';
 import "react-loading-skeleton/dist/skeleton.css";
+import { Provider } from 'react-redux';
 
-import { GET_COUNTRIES } from './graphql/queries/countries';
 import { HomePage, CountryPage } from './pages';
+import { GET_COUNTRIES } from './services';
 import type { Country } from './shared';
+import { store } from './store';
 import ErrorBoundary from './utils/ErrorBoundary';
 
 const App: React.FC = () => {
@@ -28,12 +30,14 @@ const App: React.FC = () => {
 
   return (
     <ErrorBoundary>
+      <Provider store={store}>
       <Router>
         <Routes>
           <Route path="/" element={<HomePage countries={countries} />} />
           <Route path="/country/:code" element={<CountryPage />} />
         </Routes>
       </Router>
+      </Provider>
     </ErrorBoundary>
   );
 };

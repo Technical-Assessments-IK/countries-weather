@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from "react";
 
-import { CountryList, EmptyState, FilterDropdown, SearchBar, SortDropdown } from "../components";
+import {
+  CountryList,
+  EmptyState,
+  FilterDropdown,
+  SearchBar,
+  SortDropdown,
+} from "../components";
 import type { Country } from "../shared";
 import { fetchWeatherWithTemperature } from "../utils/api";
 
 export const HomePage = ({ countries }: { countries: Country[] }) => {
-  const [enrichedCountries, setEnrichedCountries] =
-    useState<(Country & { temperature?: number })[]>([]);
-  const [filteredCountries, setFilteredCountries] =
-    useState<(Country & { temperature?: number })[]>([]);
+  const [enrichedCountries, setEnrichedCountries] = useState<
+    (Country & { temperature?: number })[]
+  >([]);
+  const [filteredCountries, setFilteredCountries] = useState<
+    (Country & { temperature?: number })[]
+  >([]);
   const [query, setQuery] = useState<string>("");
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [sortKey, setSortKey] = useState<string>("name");
@@ -104,12 +112,10 @@ export const HomePage = ({ countries }: { countries: Country[] }) => {
           />
         </div>
       </div>
-      {isLoading ? (
-        <CountryList countries={filteredCountries} isLoading />
-      ) : filteredCountries.length === 0 ? (
+      {filteredCountries.length === 0 && !isLoading ? (
         <EmptyState message="No results found. Try adjusting your search, filters, or sorting." />
       ) : (
-        <CountryList countries={filteredCountries} isLoading={false} />
+        <CountryList countries={filteredCountries} isLoading={isLoading} />
       )}
     </>
   );

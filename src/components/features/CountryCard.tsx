@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { fetchWeather } from '../../utils/api';
-
-import type { Weather } from '@/shared';
-
+import WeatherInfo from './WeatherInfo';
 
 type CountryCardProps = {
   code: string;
@@ -15,20 +12,13 @@ type CountryCardProps = {
   flag?: string;
 };
 
-export const CountryCard: React.FC<CountryCardProps> = ({ code, name, capital, continent, flag }) => {
-  const [weather, setWeather] = useState<Weather | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (capital) {
-      fetchWeather(capital)
-        .then(setWeather)
-        .catch(() => setError('Failed to fetch weather data.'));
-    } else {
-      setError('No capital available.');
-    }
-  }, [capital]);
-
+export const CountryCard: React.FC<CountryCardProps> = ({
+  code,
+  name,
+  capital,
+  continent,
+  flag,
+}) => {
   return (
     <div className="country-card">
       <div className="country-wrapper">
@@ -47,25 +37,11 @@ export const CountryCard: React.FC<CountryCardProps> = ({ code, name, capital, c
       </div>
       <p>Capital: {capital}</p>
       <p>Continent: {continent}</p>
-      {weather ? (
-        weather.current ? (
-          <div className="weather-info">
-            <p>
-              Temp: {weather.current.temp_c !== undefined ? `${weather.current.temp_c}°C` : 'Weather data not available'}
-            </p>
-            <p>Condition: {weather.current.condition.text}</p>
-            <div className="weather-info-wrapper">
-              <img
-                src={`https:${weather.current.condition.icon}`}
-                alt="Weather icon"
-              />
-            </div>
-          </div>
-        ) : (
-          <p>No weather information available.</p>
-        )
+      {/* Use WeatherInfo Component */}
+      {capital ? (
+        <WeatherInfo capital={capital} />
       ) : (
-        <p>{error || 'Loading weather...'}</p>
+        <p>No weather information available (no capital provided).</p>
       )}
       <Link to={`/country/${code}`} className="view-details">
         View Details

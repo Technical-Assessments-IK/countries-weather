@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 import Skeleton from "react-loading-skeleton";
 
-import { GET_COUNTRY_DETAILS } from "../../graphql/queries/countries";
+import { GET_COUNTRY_DETAILS } from "../../services/graphql/queries/countries";
 
 import type { Country } from "@/shared";
 

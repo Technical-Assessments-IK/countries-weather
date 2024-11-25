@@ -1,26 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import { fetchWeather } from '../../utils/api';
-
-import type { Weather } from '@/shared';
+import { useFetchWeather } from '../../hooks/useFetchWeather';
 
 type WeatherInfoProps = {
   capital: string;
 };
 
 const WeatherInfo: React.FC<WeatherInfoProps> = ({ capital }) => {
-  const [weather, setWeather] = useState<Weather | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (capital) {
-      fetchWeather(capital)
-        .then((data) => setWeather(data))
-        .catch(() => setError('Failed to fetch weather data.'));
-    } else {
-      setError('No capital provided for weather data.');
-    }
-  }, [capital]);
+  const { weather, error } = useFetchWeather(capital);
 
   if (error) return <p>{error}</p>;
   if (!weather) return <p>Loading weather...</p>;

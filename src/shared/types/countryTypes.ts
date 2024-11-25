@@ -3,6 +3,7 @@ export interface Country {
   name: string;
   capital: string | null;
   continent: {
+    toLowerCase(): unknown;
     name: string;
   };
   languages: { name: string }[];
