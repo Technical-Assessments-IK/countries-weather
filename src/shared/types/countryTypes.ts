@@ -11,10 +11,3 @@ export interface Country {
   population?: number;
   flag?: string;
 }
-
-
-
-
-
-
-  

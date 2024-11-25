@@ -1,7 +1,7 @@
 export interface ErrorBoundaryState {
-    hasError: boolean;
-  }
+  hasError: boolean;
+}
   
-  export interface ErrorBoundaryProps {
-    children: React.ReactNode;
-  }
+export interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}

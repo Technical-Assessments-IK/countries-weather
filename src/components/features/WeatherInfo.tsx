@@ -6,7 +6,7 @@ type WeatherInfoProps = {
   capital: string;
 };
 
-const WeatherInfo: React.FC<WeatherInfoProps> = ({ capital }) => {
+export const WeatherInfo: React.FC<WeatherInfoProps> = ({ capital }) => {
   const { weather, error } = useFetchWeather(capital);
 
   if (error) return <p>{error}</p>;
@@ -25,5 +25,3 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({ capital }) => {
     <p>No weather information available.</p>
   );
 };
-
-export default WeatherInfo;

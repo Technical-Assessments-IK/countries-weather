@@ -9,6 +9,7 @@ import {
 } from "../components";
 import type { Country } from "../shared";
 import { fetchWeatherWithTemperature } from "../utils/api";
+import { Container } from "@mui/material";
 
 export const HomePage = ({ countries }: { countries: Country[] }) => {
   const [enrichedCountries, setEnrichedCountries] = useState<
@@ -55,10 +56,10 @@ export const HomePage = ({ countries }: { countries: Country[] }) => {
     }
 
     if (selectedRegion) {
-      results = results.filter(
-        (country) => country.continent?.name === selectedRegion
+      results = results.filter((country) =>
+        country.continent?.name.toLowerCase() === selectedRegion.toLowerCase()
       );
-    }
+    }    
 
     results.sort((a, b) => {
       if (sortKey === "name") {
@@ -91,8 +92,8 @@ export const HomePage = ({ countries }: { countries: Country[] }) => {
   };
 
   return (
-    <>
-      <div className="filters">
+    <Container className="home-page">
+      <div className="filters-wrap">
         <SearchBar onSearch={handleSearch} />
         <div className="filters">
           <FilterDropdown
@@ -117,6 +118,6 @@ export const HomePage = ({ countries }: { countries: Country[] }) => {
       ) : (
         <CountryList countries={filteredCountries} isLoading={isLoading} />
       )}
-    </>
+    </Container>
   );
 };

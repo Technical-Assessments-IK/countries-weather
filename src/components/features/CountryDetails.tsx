@@ -8,6 +8,7 @@ import Skeleton from "react-loading-skeleton";
 import { GET_COUNTRY_DETAILS } from "../../services/graphql/queries/countries";
 
 import type { Country } from "@/shared";
+import { Card } from "@mui/material";
 
 type DetailRowProps = {
   label: string;
@@ -34,7 +35,7 @@ export const CountryDetails = () => {
   const country = data?.country as Country | undefined;
 
   return (
-    <div className="country-details">
+    <Card className="country-details">
       <h1>{loading ? <Skeleton width={200} /> : country?.name}</h1>
       <DetailRow
         label="Capital"
@@ -60,6 +61,6 @@ export const CountryDetails = () => {
         loading={loading}
         skeletonWidth={200}
       />
-    </div>
+    </Card>
   );
 };

@@ -1,13 +1,9 @@
-import React, { useState } from "react";
-
+import React from "react";
 import { CountryPaginate } from "../controls";
 import { CountryCardSkeleton, EmptyState } from "../placeholders";
-
 import { CountryCard } from "./CountryCard";
-
-import type { Country } from "@/shared";
-
-const ITEMS_PER_PAGE = 12;
+import { usePagination } from "../../hooks";
+import { ITEMS_PER_PAGE, type Country } from "../../shared";
 
 type CountryListProps = {
   countries: Country[];
@@ -18,14 +14,10 @@ export const CountryList: React.FC<CountryListProps> = ({
   countries,
   isLoading,
 }) => {
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const handlePageClick = (event: { selected: number }) => {
-    setCurrentPage(event.selected);
-  };
-
-  const offset = currentPage * ITEMS_PER_PAGE;
-  const currentCountries = countries.slice(offset, offset + ITEMS_PER_PAGE);
+  const { paginatedItems, handlePageClick } = usePagination(
+    countries,
+    ITEMS_PER_PAGE
+  );
 
   if (isLoading) {
     return (
@@ -45,10 +37,10 @@ export const CountryList: React.FC<CountryListProps> = ({
         <>
           <CountryPaginate
             pageCount={Math.ceil(countries.length / ITEMS_PER_PAGE)}
-            onPageChange={handlePageClick}
+            onPageChange={(event) => handlePageClick(event.selected)}
           />
           <div className="countries-grid">
-            {currentCountries.map((country) => (
+            {paginatedItems.map((country) => (
               <CountryCard
                 key={country.code}
                 code={country.code}
@@ -61,7 +53,7 @@ export const CountryList: React.FC<CountryListProps> = ({
           </div>
           <CountryPaginate
             pageCount={Math.ceil(countries.length / ITEMS_PER_PAGE)}
-            onPageChange={handlePageClick}
+            onPageChange={(event) => handlePageClick(event.selected)}
           />
         </>
       )}

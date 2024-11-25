@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
 
-import WeatherInfo from './WeatherInfo';
+import { WeatherInfo } from './WeatherInfo';
 import { Link } from '@mui/material';
 
 type CountryCardProps = {

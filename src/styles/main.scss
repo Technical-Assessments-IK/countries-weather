@@ -1,98 +1,218 @@
-body {
-  font-family: 'Roboto';
+// Variables
+$border-color: #ccc;
+$border-radius: 4px;
+$gap-sm: 1rem;
+$gap-md: 2rem;
+$gap-lg: 3rem;
+$font-family: 'Roboto', sans-serif;
+$background-light: #f9f9f9;
+$background-primary: #cfe8fc;
+$text-muted: #666;
+$link-color: #1976d2;
+$hover-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+$transition-duration: 0.2s;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+@mixin hover-border($color) {
+  border-color: $color;
+  &:hover {
+    border-color: $color;
+  }
+}
+
+@mixin transition($properties...) {
+  transition: $properties $transition-duration ease-in-out;
+}
+
+// Base styles
+body {
+  font-family: $font-family;
+  margin: 0;
+  padding: 0;
+}
+
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// Utilities
+.align-center {
+  @include flex-center;
+}
+
+// Layouts
 .countries-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 2rem;
-  padding: 1rem;
+  gap: $gap-md;
+  padding: $gap-sm;
 }
-.country-flag,
-.weather-info img {
-  margin: 0;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-}
-.weather-info {
-  display: grid;
-}
-.weather-info-wrapper {
-  align-self: flex-end;
-  width: 30px;
-  height: 30px;
-}
-.country-flag-wrap {
-  height: 20px;
-  position: relative;
-}
-.country-wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-.search-bar {
-  padding: 0.5rem;
-  flex-grow: 1;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin: 0 20px 0 0;
-}
-.country-card {
-  padding: 1rem;
-  border-radius: 8px;
-  display: grid;
-  min-height: 100px;
-  position: relative;
-}
-.view-details {
-  justify-self: flex-end;
-  align-self: flex-end;
-}
-.filter-dropdown,
-.sort-dropdown {
-  margin: 0 0.5rem;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.filters {
-  margin-bottom: 20px;
-  gap: 1rem;
-}
-.filters,
-.filter-dropdown,
-.sort-dropdown {
-  display: flex;
-  align-items: center;
-}
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin: 1rem 0;
-  list-style: none;
 
-  li {
-    margin: 0 0.5rem;
-    cursor: pointer;
-    &.active {
-      font-weight: bold;
+// Pages
+.home-page {
+  background: $background-primary;
+  padding: $gap-sm;
+}
+
+.country-page {
+  .country-details {
+    margin: $gap-sm;
+    background: $background-primary;
+    padding: $gap-sm;
+  }
+}
+
+// Components
+.country-card {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: $gap-sm;
+  border-radius: $border-radius;
+  border: 1px solid $border-color;
+  min-height: 150px;
+  position: relative;
+  @include transition(transform, box-shadow);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $hover-shadow;
+  }
+
+  .view-details {
+    justify-self: flex-end;
+    align-self: flex-end;
+    color: $link-color;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 }
+
+// Flag and weather
+.country-flag-wrap {
+  @include flex-center;
+  height: 40px;
+
+  .country-flag {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+}
+
+.weather-info {
+  display: grid;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .weather-info-wrapper {
+    width: 30px;
+    height: 30px;
+    align-self: flex-end;
+  }
+}
+
+// Wrappers
+.country-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// Forms
+.search-bar {
+  padding: 0.5rem;
+  flex-grow: 1;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  margin-right: $gap-sm;
+  background: white;
+  @include transition(border-color);
+
+  &:focus {
+    border-color: $link-color;
+    outline: none;
+  }
+}
+
+.filter-dropdown,
+.sort-dropdown {
+  margin: 0 $gap-sm;
+  padding: 0.5rem;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: white;
+  cursor: pointer;
+  @include hover-border($link-color);
+}
+
+// Filters
+.filters-wrap {
+  display: flex;
+  align-items: center;
+  margin-bottom: $gap-sm;
+  gap: $gap-md;
+
+  .filters {
+    display: flex;
+    align-items: center;
+    gap: $gap-sm;
+  }
+}
+
+// Pagination
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: $gap-sm 0;
+  list-style: none;
+
+  li {
+    margin: 0 $gap-sm;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.active {
+      font-weight: bold;
+      color: $link-color;
+    }
+  }
+}
+
+// Empty state
 .empty-state {
   text-align: center;
-  padding: 2rem;
+  padding: $gap-md;
   font-size: 1.2rem;
-  color: #666;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  color: $text-muted;
+  background-color: $background-light;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
 }
+
+// Navigation
 nav {
   display: flex;
   justify-content: center;
+  gap: $gap-md;
 }
