@@ -1,21 +1,23 @@
-import React, { useState } from "react";
+import { Container } from '@mui/material';
+import { useState } from 'react';
+
+import type { Country } from '@/shared';
 import {
   CountryList,
   EmptyState,
   FilterDropdown,
   SearchBar,
   SortDropdown,
-} from "../components";
-import type { Country } from "@/shared";
-import { Container } from "@mui/material";
-import { useFilteredCountries } from "../hooks/useFilteredCountries";
-import { useEnrichedCountries } from "../hooks/useEnrichedCountries";
+} from '../components';
+
+import { useEnrichedCountries } from '../hooks/useEnrichedCountries';
+import { useFilteredCountries } from '../hooks/useFilteredCountries';
 
 export const HomePage = ({ countries }: { countries: Country[] }) => {
-  const [query, setQuery] = useState<string>("");
+  const [query, setQuery] = useState<string>('');
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  const [sortKey, setSortKey] = useState<string>("name");
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [sortKey, setSortKey] = useState<string>('name');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
   const { enrichedCountries, isLoading } = useEnrichedCountries(countries);
   const filteredCountries = useFilteredCountries(
@@ -23,7 +25,7 @@ export const HomePage = ({ countries }: { countries: Country[] }) => {
     query,
     selectedRegion,
     sortKey,
-    sortDirection
+    sortDirection,
   );
 
   const handleSearch = (query: string) => {
@@ -34,38 +36,40 @@ export const HomePage = ({ countries }: { countries: Country[] }) => {
     setSelectedRegion(region || null);
   };
 
-  const handleSort = (key: string, direction: "asc" | "desc") => {
+  const handleSort = (key: string, direction: 'asc' | 'desc') => {
     setSortKey(key);
     setSortDirection(direction);
   };
 
   return (
-    <Container className="home-page">
-      <div className="filters-wrap">
-        <SearchBar onSearch={handleSearch} />
-        <div className="filters">
-          <FilterDropdown
-            options={["Asia", "Europe", "Africa", "Oceania", "America"]}
-            onFilter={handleFilter}
-            label="Filter by Region"
-          />
-          <SortDropdown
-            options={[
-              { label: "Name (A-Z)", value: "name-asc" },
-              { label: "Name (Z-A)", value: "name-desc" },
-              { label: "Temperature (Low-High)", value: "temperature-asc" },
-              { label: "Temperature (High-Low)", value: "temperature-desc" },
-            ]}
-            onSort={handleSort}
-            label="Sort by:"
-          />
+    <>
+      <Container className="home-page">
+        <div className="filters-wrap">
+          <SearchBar onSearch={handleSearch} />
+          <div className="filters">
+            <FilterDropdown
+              options={['Asia', 'Europe', 'Africa', 'Oceania', 'America']}
+              onFilter={handleFilter}
+              label="Filter by Region"
+            />
+            <SortDropdown
+              options={[
+                { label: 'Name (A-Z)', value: 'name-asc' },
+                { label: 'Name (Z-A)', value: 'name-desc' },
+                { label: 'Temperature (Low-High)', value: 'temperature-asc' },
+                { label: 'Temperature (High-Low)', value: 'temperature-desc' },
+              ]}
+              onSort={handleSort}
+              label="Sort by:"
+            />
+          </div>
         </div>
-      </div>
-      {filteredCountries.length === 0 && !isLoading ? (
-        <EmptyState message="No results found. Try adjusting your search, filters, or sorting." />
-      ) : (
-        <CountryList countries={filteredCountries} isLoading={isLoading} />
-      )}
-    </Container>
+        {filteredCountries.length === 0 && !isLoading ? (
+          <EmptyState message="No results found. Try adjusting your search, filters, or sorting." />
+        ) : (
+          <CountryList countries={filteredCountries} isLoading={isLoading} />
+        )}
+      </Container>
+    </>
   );
 };
