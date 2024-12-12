@@ -13,7 +13,9 @@ import { theme } from './styles/theme';
 import ErrorBoundary from './utils/ErrorBoundary';
 
 const App: React.FC = () => {
-  const { data, loading, error } = useQuery(GET_COUNTRIES);
+  const { data, loading, error } = useQuery(GET_COUNTRIES, {
+    fetchPolicy: 'network-only',
+  });
   const [countries, setCountries] = useState<Country[]>([]);
 
   useEffect(() => {
@@ -23,6 +25,8 @@ const App: React.FC = () => {
       setCountries([]);
     }
   }, [data]);
+
+  const basename = process.env.PUBLIC_URL || '/';
 
   if (loading) {
     return (
@@ -34,10 +38,14 @@ const App: React.FC = () => {
     );
   }
 
-  if (error) return <p>Error: {error.message}</p>;
-
-  const basename =
-    process.env.NODE_ENV === 'production' ? '/countries-weather' : '/';
+  if (error) {
+    console.error('GraphQL Error:', error.message);
+    return (
+      <p style={{ color: 'red', textAlign: 'center' }}>
+        Error: {error.message}
+      </p>
+    );
+  }
 
   return (
     <ErrorBoundary>

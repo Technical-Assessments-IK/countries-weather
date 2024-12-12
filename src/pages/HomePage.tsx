@@ -1,4 +1,5 @@
-import { Container } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import { Container, IconButton, Link } from '@mui/material';
 import { useState } from 'react';
 
 import type { Country } from '@/shared';
@@ -44,6 +45,15 @@ export const HomePage = ({ countries }: { countries: Country[] }) => {
   return (
     <>
       <Container className="home-page">
+        <Link
+          href="https://github.com/Technical-Assessments-IK/countries-weather"
+          target="_blank"
+        >
+          <IconButton color="primary" aria-label="add to shopping cart">
+            <GitHubIcon />
+          </IconButton>
+          Check out my repo on Github
+        </Link>
         <div className="filters-wrap">
           <SearchBar onSearch={handleSearch} />
           <div className="filters">

@@ -5,9 +5,10 @@
   "homepage": "https://Technical-Assessments-IK.github.io/countries-weather",
   "dependencies": {
     "@apollo/client": "^3.11.10",
-    "@emotion/react": "^11.13.5",
-    "@emotion/styled": "^11.13.5",
-    "@mui/material": "^6.1.8",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.2.0",
+    "@mui/material": "^6.2.0",
     "@reduxjs/toolkit": "^2.3.0",
     "@svgr/webpack": "^8.1.0",
     "@testing-library/jest-dom": "^5.17.0",
