@@ -26,7 +26,7 @@ const App: React.FC = () => {
     }
   }, [data]);
 
-  const basename = process.env.PUBLIC_URL || '/';
+  const basename = "/countries-weather";
 
   if (loading) {
     return (
