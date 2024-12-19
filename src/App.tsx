@@ -26,7 +26,7 @@ const App: React.FC = () => {
     }
   }, [data]);
 
-  const basename = "/countries-weather";
+  const basename = '/countries-weathers';
 
   if (loading) {
     return (
